@@ -1,0 +1,153 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <!-- css basics datables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- ref datatables basics -->
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+    <!-- Table for contries-->
+    <section id="horizontal">
+        <a name="table1-anchor"></a>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title" id="table1TitleID">Buscar Pais
+                            <div class="d-flex align-items-center">
+                                <input type="text" name="pais" id="paisID" onkeypress="handleKeyPress(event)" >
+                                <button class="btn btn-outline-dark ml-2" onclick="loadTableFilter()">
+                                    <i class="fas fa-search"></i> 
+                                </button>
+                            </div>
+                        </h4>
+                    </div>
+                    <div class="card-content collapse show">
+                        <div class="card-body card-dashboard">
+                            <div class="table-responsive">
+                                <table class="table display nowrap table-striped table-bordered scroll-horizontal"
+                                    id="table1TableID">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center">Común</th>
+                                            <th class="text-center">Español</th>
+                                            <th class="text-center">Nombre oficial</th>
+                                            <th class="text-center">Capital</th>
+                                            <th class="text-center">Región</th>
+                                            <th class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodytable1ID">
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for error -->
+    <div class="modal" id="searchModalID" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Resultado de la búsqueda</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="searchModalBodyID">
+                    <!-- Modal Content, In the start will be empty -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal to show countries-->
+    <div class="modal fade" id="paisModalID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalles País</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="paisModalBodyID" class="modal-body">
+                    <div class="container-fluid">
+                        <div class="col-md-1"> <img class="flagicon" src="https://flagcdn.com/w320/cr.png"
+                                alt="Bandera"> </div>
+                        <ul style="display: inline-block;">
+                            <li>Nombre</li>
+                            <li>Nombre official</li>
+                            <li>Región</li>
+                            <li>Subregión</li>
+                            <li>Continente</li>
+                        </ul>
+                        <ul style=" float: right;">
+                            <li>Habitantes</li>
+                            <li>Nombres Países limítrofres:</li>
+                            <li>País 1</li>
+                            <li>País 2</li>
+                            <li>País 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Local Scripts -->
+    <script src="scripts/script.js"></script>
+
+
+</body>
+
+</html>
