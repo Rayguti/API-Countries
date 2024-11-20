@@ -199,7 +199,7 @@ function dataTableSetProperties() {
           next: "Next",
           last: "Last",
         },
-        info: "Mostrando página _PAGE_  de _PAGES_",
+        info: "Showing page _PAGE_  of _PAGES_",
         infoEmpty: "there is no data",
         emptyTable: "there is no available countries",
       },
