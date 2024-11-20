@@ -53,7 +53,7 @@ function loadTableFilter(countryName) {
         console.log('error', error);
         loadTable();
 
-        var mensaje = countryName ? `País encontrado: ${countryName}` : 'País no encontrado';
+        var mensaje = countryName ? `Country Found: ${countryName}` : 'Country not found';
 
         document.getElementById('searchModalBodyID').innerHTML = `<p>${mensaje}</p>`;
 
@@ -81,7 +81,7 @@ function getCountryName(code) {
       if (countryName) {
         return countryName;
       } else {
-        throw new Error('No se pudo obtener el nombre del país.');
+        throw new Error('The country name was not found');
       }
     })
     .catch(error => {
@@ -189,19 +189,19 @@ function dataTableSetProperties() {
 
       language: {
         // lengthMenu: " _MENU_ ",
-        search: "Filtrar:  ",
+        search: "Filters:  ",
 
         paginate: {
 
-          show: "Mostrando",
-          fisrt: "Primer",
-          previous: "Anterior",
-          next: "Siguiente",
-          last: "Ultimo",
+          show: "Showing",
+          fisrt: "First",
+          previous: "Previous",
+          next: "Next",
+          last: "Last",
         },
         info: "Mostrando página _PAGE_  de _PAGES_",
-        infoEmpty: "No hay datos",
-        emptyTable: "No hay paises disponibles",
+        infoEmpty: "there is no data",
+        emptyTable: "there is no available countries",
       },
       pageLength: 20,
       // lengthMenu: [10, 25, 50, 75, 100],
@@ -212,7 +212,7 @@ function dataTableSetProperties() {
 }
 
 
-// name, oficialName, region, subregion, continent, flag ,poblacion, pas1, pas2, pas3
+// name, oficialName, region, subregion, continent, flag , Population, pas1, pas2, pas3
 function updateDetails(name, officialName, region, subregion, continent, flag, population, borders) {
   // ... Resto del código ...
   // var lista = JSON.parse(borders);
@@ -223,18 +223,18 @@ function updateDetails(name, officialName, region, subregion, continent, flag, p
     `<div class="container-fluid" style = "font-size: smaller; " >
         <div class="col-md-1"> <img class="flagicon" src="${flag}" alt="Bandera"> </div>
         <ul style="display: inline-block; font-weight: bold; list-style: none;">
-            <li>Comun: ${name}</li>
-            <li>Oficial: ${officialName}</li>
+            <li>Common: ${name}</li>
+            <li>Official: ${officialName}</li>
             <li>Region: ${region}</li>
             <li>Subregion: ${subregion}</li>
-            <li>Continente: ${continent}</li>
+            <li>Continent: ${continent}</li>
         </ul>
         <ul style=" float: right;">
-            <li style = "list-style: none;">Poblacion: ${population}</li>`;
+            <li style = "list-style: none;">Population: ${population}</li>`;
 
   if (borders[0] !== "undefined") {
 
-    modalHtml += `<li style="list-style: none;">Fronteras:</li>`;
+    modalHtml += `<li style="list-style: none;">Bondaries:</li>`;
 
     const promises = borders.map(country => getCountryName(country));
 
@@ -248,11 +248,11 @@ function updateDetails(name, officialName, region, subregion, continent, flag, p
         modalHtml += `
               </ul>
           </div>`;
-        document.getElementById('paisModalBodyID').innerHTML = modalHtml
+        document.getElementById('countryModalBodyID').innerHTML = modalHtml
         $('#paisModalID').modal('show');
       })
       .catch(error => {
-        console.error('Error al obtener nombres de países limítrofes:', error);
+        console.error('Error to get the Name of Boundaries Countries:', error);
       });
   }
   else {
@@ -260,7 +260,7 @@ function updateDetails(name, officialName, region, subregion, continent, flag, p
     modalHtml += `
           </ul>
         </div>`;
-    document.getElementById('paisModalBodyID').innerHTML = modalHtml
+    document.getElementById('countryModalBodyID').innerHTML = modalHtml
     $('#paisModalID').modal('show');
   }
 
