@@ -3,9 +3,9 @@ $(document).ready(function () {
 });
 
 function handleKeyPress(event) {
-  // Verificar si la tecla presionada es "Enter" (código 13)
+  //keycode 13 == enter
   if (event.keyCode === 13) {
-    // Disparar el clic del botón
+
     loadTableFilter();
   }
 }
@@ -27,7 +27,7 @@ function loadTable() {
 }
 
 function loadTableFilter(countryName) {
-  // Concatenar el nombre del país a la URL
+
   var countryName = document.getElementById('paisID').value;
 
   console.log(countryName);
@@ -55,10 +55,8 @@ function loadTableFilter(countryName) {
 
         var mensaje = countryName ? `País encontrado: ${countryName}` : 'País no encontrado';
 
-        // Insertar el mensaje en el cuerpo del modal
         document.getElementById('searchModalBodyID').innerHTML = `<p>${mensaje}</p>`;
 
-        // Mostrar el modal
         $('#searchModalID').modal('show');
       });
   } else {
@@ -67,8 +65,6 @@ function loadTableFilter(countryName) {
 
 }
 
-// Llamar a la función con el nombre del país deseado
-// loadTableFilter("NombreDelPais");
 
 function getCountryName(code) {
   var requestOptions = {
@@ -76,14 +72,11 @@ function getCountryName(code) {
     redirect: 'follow'
   };
 
-  // Concatenar el código al final de la URL
   var url = "https://restcountries.com/v3.1/alpha/" + code;
 
-  // Retornar la promesa resultante del fetch
   return fetch(url, requestOptions)
-    .then(response => response.json()) // Usar response.json() en lugar de response.text()
+    .then(response => response.json())
     .then(result => {
-      // Puedes hacer algo con el resultado antes de devolverlo
       var countryName = result[0]?.name?.common;
       if (countryName) {
         return countryName;
@@ -93,13 +86,12 @@ function getCountryName(code) {
     })
     .catch(error => {
       console.log('error', error);
-      throw error; // Puedes lanzar una excepción o manejar el error de otra manera
+      throw error; 
     });
 }
 
-/*El data es el json de paises*/
 function createRows(data) {
-  var tableHtml = '';  // Initialize an empty string to build the HTML
+  var tableHtml = '';  
 
   /*Reset the table*/
   var table = $('#table1TableID').DataTable();
@@ -137,11 +129,11 @@ function createRows(data) {
     }
 
     tableHtml += '<tr>';
-    tableHtml += createTableDataHtml(nativeName); /*Nombre en idioma nativo*/
+    tableHtml += createTableDataHtml(nativeName); 
     tableHtml += createTableDataHtml(name);
-    tableHtml += createTableDataHtml(spanishName); /*Nombre en idioma espanol*/
+    tableHtml += createTableDataHtml(spanishName); 
     tableHtml += createTableDataHtml(officialName);
-    // Validar si hay una capital antes de agregar la celda correspondiente
+
     if (capital) {
       tableHtml += createTableDataHtml(capital);
     } else {
@@ -166,7 +158,7 @@ function createRows(data) {
   tableBody.innerHTML = tableHtml;
 
   var table = dataTableSetProperties();
-  table.draw(); // Agregar nuevas filas y volver a dibujar la tabla
+  table.draw();
 }
 
 
@@ -244,18 +236,15 @@ function updateDetails(name, officialName, region, subregion, continent, flag, p
 
     modalHtml += `<li style="list-style: none;">Fronteras:</li>`;
 
-    // Crear un array de promesas para todas las llamadas a getCountryName
     const promises = borders.map(country => getCountryName(country));
 
-    // Esperar a que todas las promesas se resuelvan
     Promise.all(promises)
       .then(countryNames => {
-        // Agregar los nombres de los países limítrofes al HTML
+
         countryNames.forEach(countryName => {
           modalHtml += `<li>${countryName}</li>`;
         });
 
-        // Agregar el resto del HTML y mostrar el modal
         modalHtml += `
               </ul>
           </div>`;
